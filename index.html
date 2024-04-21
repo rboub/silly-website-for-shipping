@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Shipping</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            /* Set overall background color */
+            color: black;
+            /* Set default text color */
+        }
+
+        header {
+            background-color: #ffffff;
+            color: black;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            /* Added to position notification icon */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .user-icon {
+            position: fixed;
+            top: 2%;
+            right: 2%;
+            width :5%;
+            height: auto;
+            background-image: url('https://cdn-icons-png.freepik.com/256/456/456212.png');
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        .box-icon {
+            position: relative;
+            width: 75px;
+            height: 75px;
+            margin-left: -350px;
+            margin-top: -140px;
+        }
+
+        .motto {
+            font-size: 2em;
+            margin-top: 10px;
+            margin-left: -500px;
+            z-index: 1;
+        }
+
+        .nav-link {
+            text-decoration: None;
+            color: black;
+            font-size: 1.5em;
+            margin-left: -1000px;
+            font-weight: bold;
+            transition: color 0.3s;
+
+        }
+
+        .nav-link:hover {
+            color: #939393;
+
+        }
+
+        .blur-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        z-index: 9999; /* Ensure it's above all other elements */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .blur-message {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+    }
+
+        .blurb {
+            display: none;
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .nav-link:hover + .blurb {
+            display: block;
+        }
+
+        .input-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            width: 60%;
+        }
+
+        input[type="text"],
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #416142;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #193a1b;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 style="font-size: 5em; margin-right: 1000px;">Easy Shipping</h1>
+        <img class="box-icon" src="https://cdn-icons-png.flaticon.com/128/297/297135.png" alt="Box Icon">
+        <div class="motto">Welcome to EasyShipping, the website that simplifies shipping for everybody!</div>
+
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link">How it works</a>
+                    <div class="blurb">Enter the item you want to ship, and we'll provide you with a comprehensive list of items needed, where to purchase them, and how to ship them affordably.</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="input-container">
+            <h2>Enter Details of the Item to Ship</h2>
+            <form id="shipping-form" action="/submission.html" method="POST" onsubmit="return validateForm()">
+    
+                <label for="item-name">Item Name:</label>
+                <input type="text" id="item-name" name="item-name" placeholder="Enter item name..." required>
+    
+                <label for="item-dimensions">Dimensions (L x W x H):</label>
+                <input type="text" id="item-dimensions" name="item-dimensions" placeholder="Enter dimensions (e.g., 10x8x6 inches)...">
+    
+                <label for="fragility">Fragility:</label>
+                <select id="fragility" name="fragility" required>
+                    <option value="">Select fragility...</option>
+                    <option value="low">Low</option>
+                    <option value="high">High</option>
+                </select>
+    
+                <label for="item-weight">Weight (in lbs):</label>
+                <input type="number" id="item-weight" name="item-weight" placeholder="Enter weight in pounds..." required>
+    
+                <label for="timeframe">Timeframe:</label>
+                <input type="number" id="amount-of-days" name="amount-of-days" placeholder="Enter amount of days to ship" required>
+    
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" placeholder="Enter destination" required>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    
+    <script>
+        function validateForm() {
+            var itemName = document.getElementById('item-name').value.trim();
+            var fragility = document.getElementById('fragility').value.trim();
+            var itemWeight = document.getElementById('item-weight').value.trim();
+            var timeframe = document.getElementById('amount-of-days').value.trim();
+            var destination = document.getElementById('destination').value.trim();
+    
+            var errorMessages = [];
+    
+            if (itemName === '') {
+                errorMessages.push('Item Name');
+            }
+            if (fragility === '') {
+                errorMessages.push('Fragility');
+            }
+            if (itemWeight === '') {
+                errorMessages.push('Weight');
+            }
+            if (timeframe === '') {
+                errorMessages.push('Timeframe');
+            }
+            if (destination === '') {
+                errorMessages.push('Destination');
+            }
+    
+            if (errorMessages.length > 0) {
+                var errorMessage = 'Please fill out the following fields:\n' + errorMessages.join(', ');
+                alert(errorMessage);
+                return false;
+            }
+    
+            return true;
+        }
+            
+    </script>
+     <div class="account-icon"></div>
+     <div class="guide-icon"></div>
+    </body>
+
+</html>
